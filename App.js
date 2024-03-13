@@ -1,11 +1,27 @@
-const heading = React.createElement
-("div",{id: "parent"},  
-[React.createElement("div",{id: "child"}, 
-   [React.createElement("h1", {id: "heading"},"Hello world using React"), 
-   React.createElement("h2", {id: "heading2"},"Hello world using React")] ),
-React.createElement("div",{id: "child2"}, 
-   [React.createElement("h1", {id: "heading3"},"Hello world using React"), 
-   React.createElement("h3", {id: "heading4"},"Hello world using React")]),
-])
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+const ParentCompoent = () => (
+   <div id="container">
+   <h1>Function Component example for Parent</h1>    
+   </div>
+);
+
+const child = <span>Child</span>
+const regExp = 5000;
+
+const ChildCompoent = () => (
+   <div id="container">
+   <h1>Function Component example for {child}</h1>  
+   <ParentCompoent /> 
+   <ParentCompoent></ParentCompoent> 
+   {ParentCompoent()}
+   {ParentCompoent()} 
+   <h2>{regExp}</h2>
+   <h3>{console.log("React funtional component")}</h3>
+   </div> 
+);
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(heading);
+root.render(<ChildCompoent />);
