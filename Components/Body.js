@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import resList  from "../utils/mockData";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => { 
+
+ 
     
 const [ListOfResturants, setListOResturant] = useState([]);
 const [filteredResturant, setFilteredResturant] = useState([]);
@@ -24,6 +27,11 @@ const fetchData = async () =>{
     setFilteredResturant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 }
  
+const onlineStatus = useOnlineStatus();
+
+if(onlineStatus === false) {
+  return  (<h1>Please check your network</h1>)
+}
  
 return ListOfResturants.length === 0 ? 
 (<Shimmer />) : (
