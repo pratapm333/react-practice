@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
-import { MENU_API } from "../utils/constants";
+ 
 
 const RestaurantMenu = () => {
 
@@ -29,16 +29,22 @@ const {carousel} =  resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
 
 console.log("itemCards ", carousel )
     return   (
-        <div>
-            <h1>{name}</h1>
-            <h4> {cuisines}</h4>
-            <h4> {costForTwoMessage}</h4>  
-           <ul>
+      
+        <div className="px-4 py-4">
+             
+              <div className="px-4 sm:px-0 w-80 grid-cols-2"> 
+            <div className="border-b border-gray-900/10 pb-12">
+            <h1 className="text-base font-semibold leading-7 text-gray-900">{name}</h1>
+            <h4 className="block text-sm font-medium leading-6 text-gray-900"> {cuisines}</h4>
+            <h4 className="block text-sm font-medium leading-6 text-gray-900"> {costForTwoMessage}</h4>  
+           <ul className="divide-y divide-gray-100">
              
             {carousel.map((item) => (
-               <li key={item.dish.info.id}> {item.dish.info.name} - Rs.{item.dish.info.defaultPrice/100 || item.dish.info.price/100}</li>
+               <li className="flex justify-between gap-x-6 py-5" key={item.dish.info.id}> {item.dish.info.name} - Rs.{item.dish.info.defaultPrice/100 || item.dish.info.price/100}</li>
             ))}
            </ul>
+           </div>
+        </div>
         </div>
     )
 }

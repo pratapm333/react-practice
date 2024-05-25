@@ -12,23 +12,24 @@ const Header =() =>{
    useEffect(()=>{}, [])
 
    return (
-    <div className="header-container">
-     <img src={require("../Images/food.png")} alt="logo"/> 
-      
-       <div className="menu-bar">
-       <ul>
+    <div className="flex justify-between bg-pink-100 shadow-lg m-2 sm:bg-yellow-100 lg:bg-green-100">
+      <div className="logo-container">
+     <img className="w-36" src={require("../Images/food.png")} alt="logo"/> 
+       </div>
+       <div className="flex align-middle">
+       <ul className="flex p-4 m-4">  
        <li> online status: {onlineStatus ? "🟢" :   "🔴"      }</li> 
-          <li> <Link to="/"> Home </Link></li> 
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li>Cart </li> 
-          
+          <li className="px-4"> <Link to="/"> Home </Link></li> 
+          <li  className="px-4"><Link to="/about">About</Link></li>
+          <li  className="px-4"><Link to="/contact">Contact</Link></li>
+          <li  className="px-4">Cart </li> 
+          <li  className="px-4">
             <button className="login" onClick={() =>{
              btnNameReact === "login" ?  setBtnNameReact("Logout") : setBtnNameReact("login")
             }}>
                {btnNameReact} 
             </button>
-           
+            </li>
        </ul>
        </div>
        </div>
