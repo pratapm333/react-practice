@@ -1,10 +1,11 @@
 
-import RestaurantCard from "./RestaurantCard" ;
-import { useState, useEffect } from "react";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard" ;
+import { useState, useEffect, useContext } from "react";
 import resList  from "../utils/mockData";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/userContext";
 
 const Body = () => { 
 
@@ -13,6 +14,10 @@ const Body = () => {
 const [ListOfResturants, setListOResturant] = useState([]);
 const [filteredResturant, setFilteredResturant] = useState([]);
 const [searchText, setSearchText] = useState("");
+
+const {loggedInUser, setUserName} = useContext(UserContext);
+
+const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
 
 useEffect(()=>{
     fetchData();
@@ -51,23 +56,20 @@ return ListOfResturants.length === 0 ?
            
         }}>Search</button>
 
-        <button className="px-4 py-2 bg-slate-200 m-4 p-4 rounded-lg" 
-         onClick= { () => {
-        const filterList =  ListOfResturants.filter((res) =>  res.info.avgRating > 4.6 
-          ); 
-          setListOResturant(filterList)
-          console.log("ListOfResturants", ListOfResturants)
-        }
-    }
-        >Top rated</button>
-    </div>
+<label> User name : <input className="border border-black p-2" 
+value={loggedInUser} 
+onChange={(e) => setUserName(e.target.value)}/></label>  
+ </div>
+  
 
     <div className="flex flex-wrap ">
        {filteredResturant.map((resturant) => (
           <Link 
           key={resturant.info.id}
           to={"/restaurant/" + resturant.info.id} >
-          <RestaurantCard  resData={resturant} /> 
+        { resturant.info.veg ? (<RestaurantCardPromoted resData={resturant} />)  : 
+         (<RestaurantCard  resData={resturant} /> )
+        }
           </Link>
        ))}
   </div>

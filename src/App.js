@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -8,13 +8,28 @@ import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
+import UserContext from "./utils/userContext";
  
- const LayoutComponent  = () =>  { return(
+ const LayoutComponent  = () =>  { 
+
+   const [userName, setUserName] = useState()
+
+   useEffect(()=>{
+    
+    const data = {
+      name: "Pratap",
+    } 
+    setUserName(data.name)
+   }, []) 
+   
+   return(
+      <UserContext.Provider value={{loggedInUser:userName, setUserName }}>
       <div className="main-container">
          <Header />  
          <Outlet />
          <Footer />
       </div>
+      </UserContext.Provider>
  );
  }
 
